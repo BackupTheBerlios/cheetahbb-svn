@@ -1,8 +1,11 @@
 v0.0.1
 ======
+	25.10.2006-26.10.2006
+		added: Error handler (not yet finished) [soultcer]
+		added: Template class skeleton [soultcer]
 	22.10.2006
-		index.php skeleton [soultcer]
+		added: index.php skeleton [soultcer]
 	03.10.2006
-		finished SQL layout [soultcer]
+		added: SQL layout [soultcer]
 	02.10.2006
 		started coding [soultcer]
