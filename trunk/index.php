@@ -13,6 +13,7 @@
  * as published by the Free Software Foundation.
  *
  * @author     David Triendl <david@triendl.name>
+ * @date       $Date$
  * @copyright  2006 David Triendl
  * @package    CheetahBB
  * @license    http://www.fsf.org/licensing/licenses/gpl.html  GNU General Public License 2

@@ -4,7 +4,5 @@ Rules for editing the source code
 
 1)   CheetahBB obeys the PHP coding standard rules #01-#21 and the Suggestions #2-#3
 	(see http://php-coding-standard.de/mhtml/table_of_content.html)
-1.1) The description of a file, a class or a function must not be longer than 100 chars per line.
-	If the description is longer, please add a newline.
 2)   Every modification has to be mentioned in the CHANGELOG with the date and the name of the
 	editor.
