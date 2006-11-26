@@ -1,6 +1,10 @@
 v0.0.1
 ======
-	25.10.2006-26.10.2006
+	26.11.2006
+		added: Template class basics [soultcer]
+		changed: Removed ER_PERMISSION, added ER_HALT [soultcer]
+			... and varios small improvements [soultcer]
+	26.10.2006
 		added: Error handler (not yet finished) [soultcer]
 		added: Template class skeleton [soultcer]
 	22.10.2006

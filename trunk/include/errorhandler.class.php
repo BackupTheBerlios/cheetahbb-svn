@@ -20,14 +20,14 @@
 define('ER_STRICT', 1); // There is a better way to do this. (This error is somehow like a "todo" error)
 define('ER_NOTICE', 2); // Just if something could be done better
 define('ER_WARNING', 4); // Bad, but not fatal
-define('ER_PERMISSION', 8); // Permission for fopen or similar failed. Only halts the script when combined with ER_DATA.
-define('ER_DATA', 16);// Just some stupid error while trying to get data needed for execution. Halts the script.
-define('ER_FATAL', 32); // That should never happen. Halts the script.
+define('ER_DATA', 8); // Permission for fopen or similar failed. Only halts the script when combined with ER_HALT.
+define('ER_HALT', 16);// This error (and all the above) halts the script.
+define('ER_FATAL', 32); // That should never happen.
 
 
 class ErrorHandler {
 	
-	public $minimal_level = 2;
+	public $minimal_level = 1; // Set this to 4 in official releases
 	private $total_error_counter = 0; // Counts all errors
 	private $error_counter = 0; // Counts only errors >= $this->minimal_level
 	private $errors = array();
@@ -49,7 +49,7 @@ class ErrorHandler {
 	 */
 	public function trigger($level = 4, $message = 'Unknown error.') {
 		if($level < $this->minimal_level) {
-			if($level >= 16) { // If the error level is greater or equal 16 this function halts the script
+			if($level >= ER_HALT) { // If the error level is greater or equal 16 this function halts the script
 				$this->crash($message);
 			} else {
 				if(0) {
@@ -73,11 +73,11 @@ class ErrorHandler {
 			header('HTTP/1.0 500 Internal Server Error');
 		}
 		/**
-		 * IMPORTANT: This code breaks the PHP Coding Standard rule #1 because it is easier
+		 * IMPORTANT: This code breaks the PHP Coding Standard rule #15 because it is easier
 		 * to output this bulk of XHTML code than to write a small template engine for just
 		 * one function.
 		 */
-		echo '<' . '?xml version="1.0" encoding="UTF-8"?' . '>'; // Don't break syntax highlighting
+		echo '<' . '?xml version="1.0" encoding="UTF-8"?' . '>'; // Stupod short_open_tags
 		echo <<<
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/2001/REC-xhtml11-20010531/DTD/xhtml11-flat.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -113,7 +113,7 @@ EOT;
 	 * @return array   $errors: Array containing all errors. Can be empty
 	 */
 	public function error_list() {
-		
+		return array();
 	}
 	
 }
