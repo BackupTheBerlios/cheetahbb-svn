@@ -20,20 +20,23 @@
 define('ER_STRICT', 1); // There is a better way to do this. (This error is somehow like a "todo" error)
 define('ER_NOTICE', 2); // Just if something could be done better
 define('ER_WARNING', 4); // Bad, but not fatal
-define('ER_DATA', 8); // Permission for fopen or similar failed. Only halts the script when combined with ER_HALT.
+define('ER_DATA', 8); // No permission for fopen, file does not exist or similar. Only halts the script when combined with ER_HALT.
 define('ER_HALT', 16);// This error (and all the above) halts the script.
-define('ER_FATAL', 32); // That should never happen.
-
+define('ER_FATAL', 32); // This should never happen.
 
 class ErrorHandler {
 	
 	public $minimal_level = 1; // Set this to 4 in official releases
+	private static $instance;
 	private $total_error_counter = 0; // Counts all errors
 	private $error_counter = 0; // Counts only errors >= $this->minimal_level
 	private $errors = array();
 	
-	
-	public function __construct() {
+	/**
+	 * The constructor is private because this class uses the sSngleton pattern as described
+	 * on http://www.php.net/manual/en/language.oop5.patterns.php.
+	 */
+	private function __construct() {
 	
 	}
 	
@@ -48,6 +51,9 @@ class ErrorHandler {
 	 *				printed.
 	 */
 	public function trigger($level = 4, $message = 'Unknown error.') {
+		if(!isset(self::$instance)) { // Create instance of this class if none exists
+			self::$instance = new __CLASS__;
+		}
 		if($level < $this->minimal_level) {
 			if($level >= ER_HALT) { // If the error level is greater or equal 16 this function halts the script
 				$this->crash($message);

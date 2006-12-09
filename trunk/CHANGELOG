@@ -1,5 +1,7 @@
 v0.0.1
 ======
+	09.12.2006
+		changed: Template class basics [soultcer]
 	26.11.2006
 		added: Template class basics [soultcer]
 		changed: Removed ER_PERMISSION, added ER_HALT [soultcer]

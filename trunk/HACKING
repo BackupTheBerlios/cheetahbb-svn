@@ -2,7 +2,7 @@ Rules for editing the source code
 	(or "Why do you refuse my paches?")
 
 
-1)   CheetahBB obeys the PHP coding standard rules #01-#21 and the Suggestions #2-#3
+1)   CheetahBB obeys the PHP coding standard rules #01-#21 and the Suggestions #2-#4
 	(see http://php-coding-standard.de/mhtml/table_of_content.html)
 1.1) /* ... */ is reserved for text comments. To comment out code use if(0)
 1.2) If your comment is longer than 100 chars (including whitespace in front of the comment) please
