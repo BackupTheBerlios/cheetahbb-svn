@@ -33,7 +33,7 @@ class ErrorHandler {
 	private $errors = array();
 	
 	/**
-	 * The constructor is private because this class uses the sSngleton pattern as described
+	 * The constructor is private because this class uses the Singleton pattern as described
 	 * on http://www.php.net/manual/en/language.oop5.patterns.php.
 	 */
 	private function __construct() {

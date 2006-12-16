@@ -27,13 +27,8 @@ class Template {
 	 * @param  array   $config: Array containing config variables (optional).
 	 */
 	public __construct($config = array()) {
-		$default_config = array(
-			'template_directory' => 'templates/default',
-			'gzip' => true,
-			'language' => 'en',
-			'override_language' => true
-		);
-		$this->config = array_merge($default_config, $config);
+		global($cots_default_config);
+		$this->config = array_merge($cots_default_config, $config);
 		$this->language = $this->config['language'];
 		if($this->config['override_language'] && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 			# Todo
@@ -58,7 +53,7 @@ class Template {
 		$template_compiler = new TemplateCompiler(array(
 			'template_direcotry' => $this->config['template_direcotry'];
 			'file' => $file;
-			
+			'language' => $this->language;
 		));
 	}
 	

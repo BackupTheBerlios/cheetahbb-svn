@@ -11,3 +11,5 @@ Rules for editing the source code
 	editor.
 2.1) If it took you more than one day to code something, use the day when you finished your
 	changes.
+3) If you create a new file, don't forget to add the svn:keywords-keyword Date:
+	svn propset svn:keywords Date <Your File>
