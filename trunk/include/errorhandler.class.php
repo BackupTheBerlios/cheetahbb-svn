@@ -17,12 +17,11 @@
 
 
 // Error level constants
-define('ER_STRICT', 1); // There is a better way to do this. (This error is somehow like a "todo" error)
+define('ER_LANGUAGE', 1); // Translation is incmplete
 define('ER_NOTICE', 2); // Just if something could be done better
 define('ER_WARNING', 4); // Bad, but not fatal
 define('ER_DATA', 8); // No permission for fopen, file does not exist or similar. Only halts the script when combined with ER_HALT.
-define('ER_HALT', 16);// This error (and all the above) halts the script.
-define('ER_FATAL', 32); // This should never happen.
+define('ER_HALT', 16);// Fatal error, the script hast to be halted
 
 class ErrorHandler {
 	
@@ -50,7 +49,7 @@ class ErrorHandler {
 	 * @param  string  $message: The optional error message which gets
 	 *				printed.
 	 */
-	public function trigger($level = 4, $message = 'Unknown error.') {
+	public function trigger($level = 4, $file, $line, $message = 'Unknown error.') {
 		if(!isset(self::$instance)) { // Create instance of this class if none exists
 			self::$instance = new __CLASS__;
 		}

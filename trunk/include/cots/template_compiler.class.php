@@ -39,26 +39,47 @@ class TemplateCompiler() {
 			array(),
 			''
 		);
-		$this->template = file_get_contents($this->config['template_direcotry'] . '/' . $file . '.tpl') or ErrorHandler::Trigger(ER_DATA + ER_HALT, 'Could not read template ' $file);
+		$this->template = file_get_contents($this->config['template_direcotry'] . '/' . $file . '.tpl') or ErrorHandler::trigger(ER_DATA + ER_HALT, 'template_compiler.class.php', __LINE__, 'Could not read template ' $file);
+		$strpos
 		$this->walk();
-		return $this->compiled_template
+		return $this->compiled_template;
 	}
 	
 	private function walk() {
 		$template_length = strlen($this->template);
 		for($position = 0; $position < $template_length; ++$position) {
 			if($this->template{$postion} == '{') {
-				# Here goes the compiling
+				++$position;
+				if($this->template($position == '$')) { // Stand-alone Variable
+					++$position					
+					$end_of_variable = strpos($variable, '}', $position);
+					if($end_of_variable === false) {
+						ErrorHandler::trigger(ER_HALT, 'template_compiler.class.php', __LINE__, 'No closing brace for opening brace on position ' . ($position -2));
+					}
+					$variable = substr($this->template. $position, $end_of_variable);
+					if(
+					unset($variable, $end_of_variable);
+				}
 			} elseif($this->template{$position} == '\\') {
 				$position++;
 				if($position < $template && in_array($this->template($position), array('{', '\\'}))) {
 					$this->compiled_template[2] .= $this->template($position);
 					continue;
 				} else {
-					ErrorHandler::Trigger(ER_WARNING, 'Escapce character without character to escape');
+					ErrorHandler::trigger(ER_WARNING, 'template_compiler.class.php', __LINE__, 'Escapce character without character to escape on position ' . ($position -1));
 				}
 			}
 		}
+	}
+	
+	private function parse_variable(&$position) {
+		++$position;
+		$variable = substr($this->template, $position);
+		$variable = substr
+	}
+	
+	private function ignore_whitespace(&$position) {
+		
 	}
 	
 }

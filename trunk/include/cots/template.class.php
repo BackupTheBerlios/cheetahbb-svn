@@ -15,6 +15,7 @@
  * @license    http://www.fsf.org/licensing/licenses/gpl.html  GNU General Public License 2
  */
 
+require_once(dirname(__FILE__) . '/template_common.php');
 require_once(dirname(__FILE__) . '/template_compiler.class.php');
 
 class Template {
@@ -42,7 +43,7 @@ class Template {
 	 */
 	function load_template($file) {
 		if(!file_exists($this->config['template_direcotry'] . '/' . $file . '.tpl')) {
-			ErrorHandler::Trigger(ER_DATA + ER_HALT, 'Template ' $file . ' does not exist');
+			ErrorHandler::trigger(ER_DATA + ER_HALT, 'template.class.php', __LINE__, 'Template ' $file . ' does not exist');
 		}
 		$this->file = $file;
 		if(file_exists($this->config['template_directory'] . '/' . $file . '.' . $this->language . '.cache')) { // There is a cached version of the template file

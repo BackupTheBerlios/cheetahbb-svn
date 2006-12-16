@@ -1,6 +1,10 @@
 v0.0.1
 ======
 	16.12.2006:
+		changed: Error API interface! [soultcer]
+		removed: Error level ER_FATAL [soultcer]
+			... and continued work on the Template Compiler [soultcer]
+	16.12.2006:
 		added: Began work on the Template Compiler [soultcer]
 	09.12.2006
 		changed: Template class basics [soultcer]

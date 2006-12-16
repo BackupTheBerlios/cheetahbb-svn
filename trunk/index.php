@@ -26,7 +26,6 @@ require_once('include/template.class.php');
 require_once('include/database/mysql.class.php');
 
 // Start an instante of the template and the mysql class
-$error_handler = new ErrorHandler();
 $template = new Template();
 $database = new Database($private_config['mysql']);
 
