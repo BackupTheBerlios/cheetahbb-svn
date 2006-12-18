@@ -42,17 +42,18 @@ class ErrorHandler {
 	/**
 	 * This functions triggers an error.
 	 *
-	 * @param  integer $level: The error level. This can either be one
-	 *				of the predefined constants (see
-	 *				above) or the sum of two or more
-	 *				of these constants.
-	 * @param  string  $message: The optional error message which gets
-	 *				printed.
+	  * @param  integer $level: The error level. This can either be one of the predefined
+	 *				constants (see above) or the sum of two or more of these
+	 *				constants.
+	 * @param  string  $file: The file in which the error occured. This can also be the
+	 *				complete path to the file.
+	 * @param  string  $message: The optional error message which gets printed.
 	 */
 	public function trigger($level = 4, $file, $line, $message = 'Unknown error.') {
 		if(!isset(self::$instance)) { // Create instance of this class if none exists
 			self::$instance = new __CLASS__;
 		}
+		$file = basename($file);
 		if($level < $this->minimal_level) {
 			if($level >= ER_HALT) { // If the error level is greater or equal 16 this function halts the script
 				$this->crash($message);

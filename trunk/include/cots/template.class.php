@@ -43,7 +43,7 @@ class Template {
 	 */
 	function load_template($file) {
 		if(!file_exists($this->config['template_direcotry'] . '/' . $file . '.tpl')) {
-			ErrorHandler::trigger(ER_DATA + ER_HALT, 'template.class.php', __LINE__, 'Template ' $file . ' does not exist');
+			ErrorHandler::trigger(ER_DATA + ER_HALT, __FILE__, __LINE__, 'Template ' $file . ' does not exist');
 		}
 		$this->file = $file;
 		if(file_exists($this->config['template_directory'] . '/' . $file . '.' . $this->language . '.cache')) { // There is a cached version of the template file

@@ -18,7 +18,7 @@
 define(COTS_TEMPLATE_VERSION, 1);
 define(COTS_COMPILER_VERSION, 1);
 
-define(COTS_VARIABLE_PREG, '^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$');
+define(COTS_PREG_VARIABLE, '^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$');
 
 $cots_default_config = array(
 	'template_directory' => 'templates/default',

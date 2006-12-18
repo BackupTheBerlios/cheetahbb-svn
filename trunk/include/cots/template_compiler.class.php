@@ -22,6 +22,9 @@ class TemplateCompiler() {
 	private $compiled_template; // Stores the compiled template
 	private $template;
 	private $modifier_list;
+	private $position;
+	private $line;
+	
 	
 	public function __construct($config) {
 		$this->config = $config;
@@ -39,26 +42,20 @@ class TemplateCompiler() {
 			array(),
 			''
 		);
-		$this->template = file_get_contents($this->config['template_direcotry'] . '/' . $file . '.tpl') or ErrorHandler::trigger(ER_DATA + ER_HALT, 'template_compiler.class.php', __LINE__, 'Could not read template ' $file);
-		$strpos
+		$this->template = file_get_contents($this->config['template_direcotry'] . '/' . $file . '.tpl') or ErrorHandler::trigger(ER_DATA + ER_HALT, __FILE__, __LINE__, 'Could not read template ' $file);
+		// Guess line-feeds TODO
+		$this->config['linefeed'] = "\r";
+		$this->line = 1;
 		$this->walk();
 		return $this->compiled_template;
 	}
 	
 	private function walk() {
 		$template_length = strlen($this->template);
-		for($position = 0; $position < $template_length; ++$position) {
+		for($this->position = 0; $this->position < $template_length; ++$this->position) {
 			if($this->template{$postion} == '{') {
-				++$position;
-				if($this->template($position == '$')) { // Stand-alone Variable
-					++$position					
-					$end_of_variable = strpos($variable, '}', $position);
-					if($end_of_variable === false) {
-						ErrorHandler::trigger(ER_HALT, 'template_compiler.class.php', __LINE__, 'No closing brace for opening brace on position ' . ($position -2));
-					}
-					$variable = substr($this->template. $position, $end_of_variable);
-					if(
-					unset($variable, $end_of_variable);
+				++$this->position;
+				if($this->template{$this->position} == '$') { // Stand-alone Variable
 				}
 			} elseif($this->template{$position} == '\\') {
 				$position++;
@@ -66,20 +63,40 @@ class TemplateCompiler() {
 					$this->compiled_template[2] .= $this->template($position);
 					continue;
 				} else {
-					ErrorHandler::trigger(ER_WARNING, 'template_compiler.class.php', __LINE__, 'Escapce character without character to escape on position ' . ($position -1));
+					ErrorHandler::trigger(ER_WARNING, __FILE__, __LINE__, 'Escapce character without character to escape on position ' . ($position -1));
+				}
+			} else {
+				$this->compiled_template[2] .= $this->template{$this->position};
+				if($this->template{$this->position} == $config['linefeed']{0} && ($this->linefeed != "\r\n" || $this->template{$this->position + 1} == "\n")) {
+					++$this->line;
 				}
 			}
 		}
 	}
 	
-	private function parse_variable(&$position) {
-		++$position;
-		$variable = substr($this->template, $position);
-		$variable = substr
+	private function parse_variable() {
+		++$this->position;
+		$end_of_variable = array(
+			strpos($variable, ' ', $this->position)
+		);
+		if($end_of_variable === false) {
+			$end_of_variable = strpos($variable, '}', $this->position);
+			ErrorHandler::trigger(ER_HALT, __FILE__, __LINE__, 'No closing brace for opening brace on position ' . ($this->position - 2));
+		}
+		$variable = substr($this->template. $this->position, $end_of_variable);
+		if(preg_match(COTS_PREG_VARIABLE)) {
+			ErrorHandler::trigger(ER_HALT, __FILE__, __LINE__, 'Bad name "$' . $variable . '" for variable';
+		}
+		unset($variable, $end_of_variable);
 	}
 	
-	private function ignore_whitespace(&$position) {
-		
+	private function ignore_whitespace() {
+		while(in_array($this->template{$this->position}), array(' ', "\t", "\n", "\r")) {
+			++$this->position;
+			if($this->template{$this->position} == $config['linefeed']{0} && ($this->linefeed != "\r\n" || $this->template{$this->position + 1} == "\n")) {
+				++$this->line;
+			}
+		}
 	}
 	
 }
