@@ -1,20 +1,17 @@
 <?php
 
 /**
- * This file is the index file. It includes all the necessary files,
- * cretes a database class instance, creates a template class instance. At
- * the end it checks if the database-connection got closed properly and
- * sends the HTML code to the user.
-.* If you want to include a file just place a require() or a require_once
- * here.
+ * This file is the index file. It includes all the necessary files, cretes a database class
+ * instance, creates a template class instance. At the end it checks if the database-connection got
+ * closed properly and sends the HTML code to the user. If you want to include a file just place a
+ * require() or a require_once() here.
  *
- * LICENSE: This program is free software. You can redistribute it and/or
- * modify it under the terms of the GNU General Public License version 2
- * as published by the Free Software Foundation.
+ * LICENSE: This program is free software. You can redistribute it and/or modify it under the terms
+ * of the GNU General Public License version 2 as published by the Free Software Foundation.
  *
  * @author     David Triendl <david@triendl.name>
  * @date       $Date$
- * @copyright  2006 David Triendl
+ * @copyright  2006-2007 David Triendl
  * @package    CheetahBB
  * @license    http://www.fsf.org/licensing/licenses/gpl.html  GNU General Public License 2
  */

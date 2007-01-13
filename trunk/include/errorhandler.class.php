@@ -1,16 +1,14 @@
 <?php
 
 /**
- * This is the errorhandler class. PHP's trigger_error is nice, but this
- * class is more comfortable.
+ * This is the errorhandler class. PHP's trigger_error is nice, but this class is more comfortable.
  *
- * LICENSE: This program is free software. You can redistribute it and/or
- * modify it under the terms of the GNU General Public License version 2
- * as published by the Free Software Foundation.
+ * LICENSE: This program is free software. You can redistribute it and/or modify it under the terms
+ * of the GNU General Public License version 2 as published by the Free Software Foundation.
  *
  * @author     David Triendl <david@triendl.name>
  * @date       $Date$
- * @copyright  2006 David Triendl
+ * @copyright  2006-2007 David Triendl
  * @package    CheetahBB
  * @license    http://www.fsf.org/licensing/licenses/gpl.html  GNU General Public License 2
  */
@@ -42,7 +40,7 @@ class ErrorHandler {
 	/**
 	 * This functions triggers an error.
 	 *
-	  * @param  integer $level: The error level. This can either be one of the predefined
+	 * @param  integer $level: The error level. This can either be one of the predefined
 	 *				constants (see above) or the sum of two or more of these
 	 *				constants.
 	 * @param  string  $file: The file in which the error occured. This can also be the
@@ -59,7 +57,7 @@ class ErrorHandler {
 				$this->crash($message);
 			} else {
 				if(0) {
-					$this->errors[] = $message;
+					$this->errors[] = array($level, $file, $line, $message);
 				}
 			}
 			++$this->error_counter();
@@ -73,7 +71,7 @@ class ErrorHandler {
 	 *
 	 * @param  string  $message: The error message.
 	 */
-	private function crash($message) {
+	private function crash($file, $line, $message) {
 		@ob_end_clean(); // Always worth a try
 		if(!headers_sent()) { // Check if the server alreay sent something to the client
 			header('HTTP/1.0 500 Internal Server Error');
@@ -101,6 +99,7 @@ class ErrorHandler {
   <h2>CheetahBB Error</h2>
   <h4><a href="http://cheetahbb.net">Go to the CheetahBB homepage</a></h4>
   <p>
+  
 EOT;
 		echo htmlspecialchars($message, ENT_NOQUOTES, 'UTF-8');
 		echo <<<

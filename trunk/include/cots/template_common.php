@@ -1,15 +1,15 @@
 <?php
 
 /**
- * This file contains some things that are shared between the template class and
+ * This file contains some things that are shared between the template class and the template
+ * compiler.
  *
- * LICENSE: This program is free software. You can redistribute it and/or
- * modify it under the terms of the GNU General Public License version 2
- * as published by the Free Software Foundation.
+ * LICENSE: This program is free software. You can redistribute it and/or modify it under the terms
+ * of the GNU General Public License version 2 as published by the Free Software Foundation.
  *
  * @author     David Triendl <david@triendl.name>
  * @date       $Date$
- * @copyright  2006 David Triendl
+ * @copyright  2006-2007 David Triendl
  * @package    CheetahBB
  * @subPackage COTS (CheetahBB's Own Template Engine)
  * @license    http://www.fsf.org/licensing/licenses/gpl.html  GNU General Public License 2

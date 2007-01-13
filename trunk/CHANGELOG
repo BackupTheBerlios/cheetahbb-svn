@@ -1,5 +1,9 @@
 v0.0.1
 ======
+	13.01.2007:
+		changed: Fixed some things breaking coding style rules [soultcer]
+		changed: Coding style rules [soultcer]
+		changed: Made code ready for 2007 [soultcer]
 	16.12.2006:
 		changed: Error API interface! [soultcer]
 		removed: Error level ER_FATAL [soultcer]

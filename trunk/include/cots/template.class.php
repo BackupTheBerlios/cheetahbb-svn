@@ -3,13 +3,12 @@
 /**
  * This is the template class.
  *
- * LICENSE: This program is free software. You can redistribute it and/or
- * modify it under the terms of the GNU General Public License version 2
- * as published by the Free Software Foundation.
+ * LICENSE: This program is free software. You can redistribute it and/or modify it under the terms
+ * of the GNU General Public License version 2 as published by the Free Software Foundation.
  *
  * @author     David Triendl <david@triendl.name>
  * @date       $Date: 2006-11-26 01:56:40 +0100 (Son, 26 Nov 2006) $
- * @copyright  2006 David Triendl
+ * @copyright  2006-2007 David Triendl
  * @package    CheetahBB
  * @subPackage COTS (CheetahBB's Own Template Engine)
  * @license    http://www.fsf.org/licensing/licenses/gpl.html  GNU General Public License 2

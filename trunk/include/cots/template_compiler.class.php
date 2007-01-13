@@ -4,13 +4,12 @@
  * This is the template compiler class. It uses the template file and a language file to create a
  * compiled template that is much faster to handle than the uncompiled template file.
  *
- * LICENSE: This program is free software. You can redistribute it and/or
- * modify it under the terms of the GNU General Public License version 2
- * as published by the Free Software Foundation.
+ * LICENSE: This program is free software. You can redistribute it and/or modify it under the terms
+ * of the GNU General Public License version 2 as published by the Free Software Foundation.
  *
  * @author     David Triendl <david@triendl.name>
  * @date       $Date$
- * @copyright  2006 David Triendl
+ * @copyright  2006.2007 David Triendl
  * @package    CheetahBB
  * @subPackage COTS (CheetahBB's Own Template Engine)
  * @license    http://www.fsf.org/licensing/licenses/gpl.html  GNU General Public License 2
@@ -19,11 +18,10 @@
 class TemplateCompiler() {
 	
 	private $config;
+	private $template; // This variable contains the uncompiled template
 	private $compiled_template; // Stores the compiled template
-	private $template;
-	private $modifier_list;
-	private $position;
-	private $line;
+	private $position; // This variable holds the actual character number. Starts with 0.
+	private $line; // This variable holds the actual line number. Starts with 1. Only important for the ErrorHandler
 	
 	
 	public function __construct($config) {
@@ -37,12 +35,12 @@ class TemplateCompiler() {
 			array(
 				'compiler_version' => COTS_COMPILER_VERSION,
 				'direcotry' => $this->config['template_directory'],
-				'file' => $file
+				'file' => $this->config['template_direcotry'] . '/' . $file . '.tpl'
 			),
 			array(),
 			''
 		);
-		$this->template = file_get_contents($this->config['template_direcotry'] . '/' . $file . '.tpl') or ErrorHandler::trigger(ER_DATA + ER_HALT, __FILE__, __LINE__, 'Could not read template ' $file);
+		$this->template = file_get_contents($file) or ErrorHandler::trigger(ER_DATA + ER_HALT, __FILE__, __LINE__, 'Could not read template ' $file);
 		// Guess line-feeds TODO
 		$this->config['linefeed'] = "\r";
 		$this->line = 1;
@@ -55,7 +53,8 @@ class TemplateCompiler() {
 		for($this->position = 0; $this->position < $template_length; ++$this->position) {
 			if($this->template{$postion} == '{') {
 				++$this->position;
-				if($this->template{$this->position} == '$') { // Stand-alone Variable
+				if($this->template{$this->position} == '$') { // Variable
+					$this->parse_varia
 				}
 			} elseif($this->template{$position} == '\\') {
 				$position++;
@@ -63,7 +62,7 @@ class TemplateCompiler() {
 					$this->compiled_template[2] .= $this->template($position);
 					continue;
 				} else {
-					ErrorHandler::trigger(ER_WARNING, __FILE__, __LINE__, 'Escapce character without character to escape on position ' . ($position -1));
+					ErrorHandler::trigger(ER_WARNING, $this->config['file'], $this->line, 'Escapce character without character to escape');
 				}
 			} else {
 				$this->compiled_template[2] .= $this->template{$this->position};
@@ -76,16 +75,21 @@ class TemplateCompiler() {
 	
 	private function parse_variable() {
 		++$this->position;
-		$end_of_variable = array(
-			strpos($variable, ' ', $this->position)
-		);
+		$end_of_variable = strpos($this->template, '}', $this->position);
 		if($end_of_variable === false) {
-			$end_of_variable = strpos($variable, '}', $this->position);
-			ErrorHandler::trigger(ER_HALT, __FILE__, __LINE__, 'No closing brace for opening brace on position ' . ($this->position - 2));
+			ErrorHandler::trigger(ER_HALT, $this->config['file'], $this->line, 'No closing brace for opening brace');
 		}
-		$variable = substr($this->template. $this->position, $end_of_variable);
+		$variable_modifiers = array();
+		$variable_with_modifiers = substr($this->template. $this->position, $end_of_variable);
+		while(false !== ($pipe = strpos($variable_with_modifiers, '}'))) {
+			if(isset($variable_pure)) {
+				$modifier = substr($variable_with_modifiers, 0, $pipe);
+			} else {
+				$variable_pure = substr($variable_with_modifiers, 0, $pipe);
+		}
+		#$variable = substr($this->template. $this->position, $end_of_variable);
 		if(preg_match(COTS_PREG_VARIABLE)) {
-			ErrorHandler::trigger(ER_HALT, __FILE__, __LINE__, 'Bad name "$' . $variable . '" for variable';
+			ErrorHandler::trigger(ER_HALT, $this->config['file'], $this->line, 'Bad name "$' . $variable . '" for variable';
 		}
 		unset($variable, $end_of_variable);
 	}
